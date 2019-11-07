@@ -1,38 +1,71 @@
 import data
+import os
+
+SQL_FILE_PATH = './data.sql'
 
 def create_sql_estado(estado):
     uf = estado["uf"]
     nome = estado["nome"]
-    return f"INSERT INTO estado (uf, nome) VALUES ('{uf}', '{nome}');"
+    return f"INSERT INTO estado (uf, nome) VALUES ('{clean_for_sql(uf)}', '{clean_for_sql(nome)}');"
 
 def create_sql_cidade(cidade):
     idCidade = cidade["idCidade"]
     nome = cidade["nome"]
     uf = cidade["uf"]
-    return f"INSERT INTO cidade (idCidade, nome, uf) VALUES ('{idCidade}', '{nome}', '{uf}');"
+    return f"INSERT INTO cidade (idCidade, nome, uf) VALUES ('{clean_for_sql(idCidade)}', '{clean_for_sql(nome)}', '{clean_for_sql(uf)}');"
 
 def create_sql_tipo(tipo):
     idTipo = tipo["idTipo"]
     descricao = tipo["descricao"]
-    return f"INSERT INTO tipo (idTipo, descricao) VALUES ({idTipo}, '{descricao}');"
+    return f"INSERT INTO tipo (idTipo, descricao) VALUES ({clean_for_sql(idTipo)}, '{clean_for_sql(descricao)}');"
 
 def create_sql_marca(marca):
     idMarca = marca["idMarca"]
     nome = marca["nome"]
     origem = marca["origem"]
-    return f"INSERT INTO marca (idMarca, nome, origem) VALUES ({idMarca}, '{nome}', '{origem}');"
+    return f"INSERT INTO marca (idMarca, nome, origem) VALUES ({clean_for_sql(idMarca)}, '{clean_for_sql(nome)}', '{clean_for_sql(origem)}');"
 
 def create_sql_modelo(modelo):
     idModelo = modelo["idModelo"]
     denominacao = modelo["denominacao"]
     idMarca = modelo["idMarca"]
     idTipo = modelo["idTipo"]
-    return f"INSERT INTO modelo (idModelo, denominacao, idMarca, idTipo) VALUES ({idModelo}, '{denominacao}', {idMarca}, {idTipo});"
+    return f"INSERT INTO modelo (idModelo, denominacao, idMarca, idTipo) VALUES ({clean_for_sql(idModelo)}, '{clean_for_sql(denominacao)}', {clean_for_sql(idMarca)}, {clean_for_sql(idTipo)});"
+
+def create_sql_especie(especie):
+    idEspecie = especie["idEspecie"]
+    descricao = especie["descricao"]
+    return f"INSERT INTO especie (idEspecie, descricao) VALUES ({clean_for_sql(idEspecie)}, '{clean_for_sql(descricao)}');"
+
+def create_sql_categoriaCNH(categoriaCNH):
+    idCategoriaCNH = categoriaCNH["idCategoriaCNH"]
+    descricao = categoriaCNH["descricao"]
+    return f"INSERT INTO categoria_cnh (idCategoriaCNH, descricao) VALUES ('{clean_for_sql(idCategoriaCNH)}', '{clean_for_sql(descricao)}');"
+
+def create_sql_proprietario(proprietario):
+    idCadastro = proprietario["idCadastro"]
+    cpf = proprietario["cpf"]
+    nome = proprietario["nome"]
+    dataNasc = proprietario["dataNasc"]
+    idCategoriaCNH = proprietario["idCategoriaCNH"]
+    endereco = proprietario["endereco"]
+    bairro = proprietario["bairro"]
+    idCidade = proprietario["idCidade"]
+    situacaoCNH = proprietario["situacaoCNH"]
+    
+    return f"INSERT INTO proprietario (idCadastro, cpf, nome, dataNasc, idCategoriaCNH, endereco, bairro, idCidade, situacaoCNH) VALUES ({clean_for_sql(idCadastro)}, '{clean_for_sql(cpf)}', '{clean_for_sql(nome)}', '{clean_for_sql(dataNasc)}', '{clean_for_sql(idCategoriaCNH)}', '{clean_for_sql(endereco)}', '{clean_for_sql(bairro)}', '{clean_for_sql(idCidade)}', '{clean_for_sql(situacaoCNH)}');"
 
 def output(saida):
-    print(saida)
+    with open(SQL_FILE_PATH, "a") as sql_file:
+        sql_file.write(saida + "\r\n")
+
+def clean_for_sql(value):
+    return value.replace("'", "\'")
 
 if __name__ == "__main__":
+    if os.path.exists(SQL_FILE_PATH):
+        os.remove(SQL_FILE_PATH)
+
     for key in data.ESTADOS:
         output(create_sql_estado(data.ESTADOS[key]))
     
@@ -47,3 +80,12 @@ if __name__ == "__main__":
 
     for key in data.MODELOS:
         output(create_sql_modelo(data.MODELOS[key]))
+    
+    for key in data.ESPECIES:
+        output(create_sql_especie(data.ESPECIES[key]))
+    
+    for key in data.CATEGORIAS_CNH:
+        output(create_sql_categoriaCNH(data.CATEGORIAS_CNH[key]))
+
+    for key in data.PROPRIETARIOS:
+        output(create_sql_proprietario(data.PROPRIETARIOS[key]))
