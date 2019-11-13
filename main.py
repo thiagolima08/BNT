@@ -53,7 +53,7 @@ def create_sql_proprietario(proprietario):
     idCidade = proprietario["idCidade"]
     situacaoCNH = proprietario["situacaoCNH"]
     
-    return f"INSERT INTO proprietario (idCadastro, cpf, nome, dataNasc, idCategoriaCNH, endereco, bairro, idCidade, situacaoCNH) VALUES ({clean_for_sql(idCadastro)}, '{clean_for_sql(cpf)}', '{clean_for_sql(nome)}', '{clean_for_sql(dataNasc)}', '{clean_for_sql(idCategoriaCNH)}', '{clean_for_sql(endereco)}', '{clean_for_sql(bairro)}', '{clean_for_sql(idCidade)}', '{clean_for_sql(situacaoCNH)}');"
+    return f"INSERT INTO condutor (idCadastro, cpf, nome, dataNasc, idCategoriaCNH, endereco, bairro, idCidade, situacaoCNH) VALUES ({clean_for_sql(idCadastro)}, '{clean_for_sql(cpf)}', '{clean_for_sql(nome)}', '{clean_for_sql(dataNasc)}', '{clean_for_sql(idCategoriaCNH)}', '{clean_for_sql(endereco)}', '{clean_for_sql(bairro)}', '{clean_for_sql(idCidade)}', '{clean_for_sql(situacaoCNH)}');"
 
 def output(saida):
     with open(SQL_FILE_PATH, "a") as sql_file:

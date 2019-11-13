@@ -221,7 +221,7 @@ while contador <= quantidade_protietario:
         "idCadastro": str(contador),
         "cpf": cpf,
         "nome": fake.name_female() if randint(1, 2) % 2 == 0 else fake.name_male(),
-        "dataNasc": str(fake.simple_profile()["birthdate"]),
+        "dataNasc": '1989-01-01',
         "idCategoriaCNH": "ABCDE"[randint(0, 4)],
         "endereco": fake.street_address() + ", " + fake.building_number(),
         "bairro": bairro["nome"],

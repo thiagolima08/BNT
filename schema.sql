@@ -57,7 +57,7 @@ CREATE TABLE modelo (
 
 
 CREATE TABLE categoria_cnh (
-    idCategoriaCNH CHAR (3) NOT NULL,
+    idCategoriaCNH CHAR (4) NOT NULL,
     descricao      TEXT     NOT NULL,
 
     PRIMARY KEY (idCategoriaCNH)
@@ -67,18 +67,17 @@ CREATE TABLE condutor (
     idCadastro     INTEGER   NOT NULL,
     cpf            CHAR (11) NOT NULL,
     nome           CHAR (50) NOT NULL,
-    dataNasc       DATE      NOT NULL,
+    dataNasc       DATE      NOT NULL CHECK (extract(year from age(dataNasc)) >= 18),
     idCategoriaCNH CHAR (3)  NOT NULL,
     endereco       CHAR (50) NOT NULL,
     bairro         CHAR (30) NOT NULL,
     idCidade       CHAR (3)  NOT NULL,
-    situacaoCNH    CHAR (1)  NOT NULL,
+    situacaoCNH    CHAR (1)  NOT NULL DEFAULT 'R' CHECK (situacaoCNH = 'R' OR situacaoCNH = 'S'),
 
     PRIMARY KEY (idCadastro),
     FOREIGN KEY (idCategoriaCNH) REFERENCES categoria_cnh (idCategoriaCNH),
     FOREIGN KEY (idCidade)       REFERENCES cidade (idCidade)
 );
-
 
 CREATE TABLE especie (
     idEspecie INTEGER      NOT NULL,
@@ -107,7 +106,7 @@ CREATE TABLE veiculo (
     dataCompra     DATE     NOT NULL,
     dataAquisicao  DATE     NOT NULL,
     valor          FLOAT    NOT NULL,
-    situacao       CHAR(1)  NOT NULL,
+    situacao       CHAR(1)  NOT NULL DEFAULT 'R' CHECK (situacao = 'R' OR situacao = 'I' OR situacao = 'B'),
 
     PRIMARY KEY (renavam),
     FOREIGN KEY (idCategoria)    REFERENCES categoria_veiculo(idCategoria),
@@ -120,7 +119,7 @@ CREATE TABLE licenciamento (
     ano      INTEGER   NOT NULL,
     renavam  CHAR (13) NOT NULL,
     dataVenc DATE      NOT NULL,
-    pago     CHAR (1)  NOT NULL,
+    pago     CHAR (1)  NOT NULL DEFAULT 'N' CHECK (pago = 'S' OR pago = 'N'),
 
     PRIMARY KEY (ano, renavam),
     FOREIGN KEY (renavam)      REFERENCES veiculo(renavam)
@@ -156,9 +155,9 @@ CREATE TABLE multa (
     dataVencimento DATE      NOT NULL,
     dataPagamento  DATE      NULL,
     valor          NUMERIC   NOT NULL,
-    juros          NUMERIC   NOT NULL,
-    valorFinal     NUMERIC   NOT NULL,
-    pago           CHAR (1)  NOT NULL,
+    juros          NUMERIC   NOT NULL DEFAULT 0.0,
+    valorFinal     NUMERIC   NOT NULL DEFAULT 0.0,
+    pago           CHAR (1)  NOT NULL DEFAULT 'N' CHECK (pago = 'S' OR pago = 'N'),
 
     PRIMARY KEY (idMulta),
     FOREIGN KEY (renavam)    REFERENCES veiculo(renavam),
