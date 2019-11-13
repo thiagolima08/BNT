@@ -56,7 +56,7 @@ CREATE TABLE categoria_cnh (
     PRIMARY KEY (idCategoriaCNH)
 );
 
-CREATE TABLE proprietario (
+CREATE TABLE condutor (
     idCadastro     INTEGER   NOT NULL,
     cpf            CHAR (11) NOT NULL,
     nome           CHAR (50) NOT NULL,
@@ -70,3 +70,38 @@ CREATE TABLE proprietario (
     FOREIGN KEY (idCategoriaCNH) REFERENCES categoria_cnh (idCategoriaCNH),
     FOREIGN KEY (idCidade) REFERENCES cidade (idCidade)
 );
+
+CREATE TABLE categoria_veiculo (
+    idCategoria_Vei   INTEGER      NOT NULL,
+    descricao         VARCHAR(30)  NOT NULL,
+    idEspecie         INTEGER      NOT NULL,
+    PRIMARY KEY(idCategoria_Vei),
+    FOREIGN KEY(idEspecie) REFERENCES especie (idEspecie)
+)
+
+CREATE TABLE veiculo (
+    renavam           CHAR(13)  NOT NULL,
+    placa             CHAR(7)   NOT NULL,
+    ano               INTEGER   NOT NULL,
+    idCategoria       INTEGER   NOT NULL,
+    idProprietario    INTEGER   NOT NULL,
+    idModelo          INTEGER   NOT NULL,
+    idCidade          INTEGER   NOT NULL,
+    dataCompra        DATE      NOT NULL,
+    dataAquisicao     DATE      NOT NULL,
+    valor             FLOAT     NOT NULL,
+    situacao          CHAR(1)   NOT NULL,
+    PRIMARY KEY(renavam),
+    FOREIGN KEY(idCategoria) REFERENCES categoria_veiculo(idCategoria_Vei),
+    FOREIGN KEY (idProprietario) REFERENCES condutor(idCadastro),
+    FOREIGN KEY (idModelo) REFERENCES modelo(idModelo),
+    FOREIGN KEY (idCidade) REFERENCES cidade(idCidade),
+)
+
+CREATE TABLE infracao(
+    idInfracao    INTEGER      NOT NULL,
+    descricao     VARCHAR(50)  NOT NULL,
+    valor         NUMERIC      NOT NULL,
+    pontos        INTEGER      NOT NULL,
+    PRIMARY KEY(idInfracao)
+)
