@@ -94,7 +94,7 @@ CREATE TABLE categoria_veiculo (
 
     PRIMARY KEY (idCategoria),
     FOREIGN KEY (idEspecie)  REFERENCES especie (idEspecie)
-)
+);
 
 CREATE TABLE veiculo (
     renavam       CHAR(13) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE veiculo (
     FOREIGN KEY (idProprietario) REFERENCES condutor(idCadastro),
     FOREIGN KEY (idModelo)       REFERENCES modelo(idModelo),
     FOREIGN KEY (idCidade)       REFERENCES cidade(idCidade)
-)
+);
 
 CREATE TABLE licenciamento (
     ano      INTEGER   NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE licenciamento (
 
     PRIMARY KEY (ano, renavam),
     FOREIGN KEY (renavam)      REFERENCES veiculo(renavam)
-)
+);
 
 CREATE TABLE transferencia (
     idHistorico    INTEGER   NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE transferencia (
     PRIMARY KEY (idHistorico),
     FOREIGN KEY (renavam)        REFERENCES veiculo(renavam),
     FOREIGN KEY (idProprietario) REFERENCES condutor(idCadastro)
-)
+);
 
 CREATE TABLE infracao (
     idInfracao INTEGER      NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE infracao (
     pontos     INTEGER      NOT NULL,
 
     PRIMARY KEY (idInfracao)
-)
+);
 
 CREATE TABLE multa (
     idMulta        INTEGER   NOT NULL,
@@ -164,4 +164,4 @@ CREATE TABLE multa (
     FOREIGN KEY (renavam)    REFERENCES veiculo(renavam),
     FOREIGN KEY (idInfracao) REFERENCES infracao(idInfracao),
     FOREIGN KEY (idCondutor) REFERENCES condutor(idCadastro)
-)
+);
