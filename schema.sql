@@ -101,7 +101,7 @@ CREATE TABLE veiculo (
     placa          CHAR(7)  NOT NULL,
     ano            INTEGER  NOT NULL,
     idCategoria    INTEGER  NOT NULL,
-    idProprietario INTEGER   NOT NULL,
+    idProprietario INTEGER  NOT NULL,
     idModelo       INTEGER  NOT NULL,
     idCidade       INTEGER  NOT NULL,
     dataCompra     DATE     NOT NULL,
