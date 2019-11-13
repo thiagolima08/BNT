@@ -74,7 +74,7 @@ CREATE TABLE condutor (
     idCidade       CHAR (3)  NOT NULL,
     situacaoCNH    CHAR (1)  NOT NULL,
 
-    PRIMARY KEY(idCadastro),
+    PRIMARY KEY (idCadastro),
     FOREIGN KEY (idCategoriaCNH) REFERENCES categoria_cnh (idCategoriaCNH),
     FOREIGN KEY (idCidade)       REFERENCES cidade (idCidade)
 );
@@ -92,8 +92,8 @@ CREATE TABLE categoria_veiculo (
     descricao   VARCHAR(30) NOT NULL,
     idEspecie   INTEGER     NOT NULL,
 
-    PRIMARY KEY(idCategoria),
-    FOREIGN KEY(idEspecie)  REFERENCES especie (idEspecie)
+    PRIMARY KEY (idCategoria),
+    FOREIGN KEY (idEspecie)  REFERENCES especie (idEspecie)
 )
 
 CREATE TABLE veiculo (
@@ -117,47 +117,51 @@ CREATE TABLE veiculo (
 )
 
 CREATE TABLE licenciamento (
-    ano           INTEGER      NOT NULL,
-    renavam       CHAR(13)     NOT NULL,
-    dataVenc      DATE         NOT NULL,
-    pago          CHAR(1)      NOT NULL,
-    PRIMARY KEY(ano, renavam),
-    FOREIGN KEY (renavam) REFERENCES veiculo(renavam)
+    ano      INTEGER   NOT NULL,
+    renavam  CHAR (13) NOT NULL,
+    dataVenc DATE      NOT NULL,
+    pago     CHAR (1)  NOT NULL,
+
+    PRIMARY KEY (ano, renavam),
+    FOREIGN KEY (renavam)      REFERENCES veiculo(renavam)
 )
 
 CREATE TABLE transferencia (
-    idHistorico    INTEGER      NOT NULL,
-    renavam        CHAR(13)     NOT NULL,
-    idProprietario INTEGER      NOT NULL,
-    dataCompra     DATE         NOT NULL,
-    dataVenda      DATE         NULL,
+    idHistorico    INTEGER   NOT NULL,
+    renavam        CHAR (13) NOT NULL,
+    idProprietario INTEGER   NOT NULL,
+    dataCompra     DATE      NOT NULL,
+    dataVenda      DATE      NULL,
+
     PRIMARY KEY (idHistorico),
-    FOREIGN KEY (renavam) REFERENCES veiculo(renavam),
+    FOREIGN KEY (renavam)        REFERENCES veiculo(renavam),
     FOREIGN KEY (idProprietario) REFERENCES condutor(idCadastro)
 )
 
 CREATE TABLE infracao (
-    idInfracao    INTEGER      NOT NULL,
-    descricao     VARCHAR(50)  NOT NULL,
-    valor         NUMERIC      NOT NULL,
-    pontos        INTEGER      NOT NULL,
-    PRIMARY KEY(idInfracao)
+    idInfracao INTEGER      NOT NULL,
+    descricao  VARCHAR (50) NOT NULL,
+    valor      NUMERIC      NOT NULL,
+    pontos     INTEGER      NOT NULL,
+
+    PRIMARY KEY (idInfracao)
 )
 
 CREATE TABLE multa (
-    idMulta        INTEGER      NOT NULL,
-    renavam        CHAR(13)     NOT NULL,
-    idInfracao     INTEGER      NOT NULL,
-    idCondutor     INTEGER      NOT NULL,
-    dataInfracao   DATE         NOT NULL,
-    dataVencimento DATE         NOT NULL,
-    dataPagamento  DATE         NULL,
-    valor          NUMERIC      NOT NULL,
-    juros          NUMERIC      NOT NULL,
-    valorFinal     NUMERIC      NOT NULL,
-    pago           CHAR(1)      NOT NULL,
+    idMulta        INTEGER   NOT NULL,
+    renavam        CHAR (13) NOT NULL,
+    idInfracao     INTEGER   NOT NULL,
+    idCondutor     INTEGER   NOT NULL,
+    dataInfracao   DATE      NOT NULL,
+    dataVencimento DATE      NOT NULL,
+    dataPagamento  DATE      NULL,
+    valor          NUMERIC   NOT NULL,
+    juros          NUMERIC   NOT NULL,
+    valorFinal     NUMERIC   NOT NULL,
+    pago           CHAR (1)  NOT NULL,
+
     PRIMARY KEY (idMulta),
-    FOREIGN KEY (renavam) REFERENCES veiculo(renavam),
+    FOREIGN KEY (renavam)    REFERENCES veiculo(renavam),
     FOREIGN KEY (idInfracao) REFERENCES infracao(idInfracao),
     FOREIGN KEY (idCondutor) REFERENCES condutor(idCadastro)
 )
