@@ -97,16 +97,17 @@ CREATE TABLE categoria_veiculo (
 );
 
 CREATE TABLE veiculo (
-    renavam       CHAR(13) NOT NULL,
-    placa         CHAR(7)  NOT NULL,
-    ano           INTEGER  NOT NULL,
-    idCategoria   INTEGER  NOT NULL,
-    idModelo      INTEGER  NOT NULL,
-    idCidade      INTEGER  NOT NULL,
-    dataCompra    DATE     NOT NULL,
-    dataAquisicao DATE     NOT NULL,
-    valor         FLOAT    NOT NULL,
-    situacao      CHAR(1)  NOT NULL,
+    renavam        CHAR(13) NOT NULL,
+    placa          CHAR(7)  NOT NULL,
+    ano            INTEGER  NOT NULL,
+    idCategoria    INTEGER  NOT NULL,
+    idProprietario INTEGER   NOT NULL,
+    idModelo       INTEGER  NOT NULL,
+    idCidade       INTEGER  NOT NULL,
+    dataCompra     DATE     NOT NULL,
+    dataAquisicao  DATE     NOT NULL,
+    valor          FLOAT    NOT NULL,
+    situacao       CHAR(1)  NOT NULL,
 
     PRIMARY KEY (renavam),
     FOREIGN KEY (idCategoria)    REFERENCES categoria_veiculo(idCategoria),
