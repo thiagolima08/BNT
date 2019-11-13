@@ -103,7 +103,7 @@ CREATE TABLE veiculo (
     idCategoria    INTEGER  NOT NULL,
     idProprietario INTEGER  NOT NULL,
     idModelo       INTEGER  NOT NULL,
-    idCidade       INTEGER  NOT NULL,
+    idCidade       CHAR (3) NOT NULL,
     dataCompra     DATE     NOT NULL,
     dataAquisicao  DATE     NOT NULL,
     valor          FLOAT    NOT NULL,
