@@ -37,7 +37,7 @@ def placaToRenavam (placa):
         acumulador += int(renavam[9-i]) * numeros_validador[i]
     acumulador *= 10
     
-    renavam += str(acumulador % 11)
+    renavam += str((acumulador % 11) % 10)
     return renavam
 
 ESTADOS = {
