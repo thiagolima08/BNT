@@ -149,12 +149,13 @@ with open('./csv/modelos-automovel.csv', newline='') as csvfile:
         modelo_denominacao = row[2]
         modelo_idMarca = row[1]
         modelo_idTipo = "1"
-        MODELOS[modelo_idModelo] = {
-            "idModelo": modelo_idModelo,
-            "denominacao": modelo_denominacao,
-            "idMarca": modelo_idMarca,
-            "idTipo": modelo_idTipo
-        }
+        if modelo_idMarca in MARCAS:
+            MODELOS[modelo_idModelo] = {
+                "idModelo": modelo_idModelo,
+                "denominacao": modelo_denominacao,
+                "idMarca": modelo_idMarca,
+                "idTipo": modelo_idTipo
+            }
 
 with open('./csv/modelos-motocicleta.csv', newline='') as csvfile:
     rowreader = csv.reader(csvfile, delimiter=';')
@@ -164,12 +165,13 @@ with open('./csv/modelos-motocicleta.csv', newline='') as csvfile:
         modelo_denominacao = row[2]
         modelo_idMarca = row[1]
         modelo_idTipo = "2"
-        MODELOS[modelo_idModelo] = {
-            "idModelo": modelo_idModelo,
-            "denominacao": modelo_denominacao,
-            "idMarca": modelo_idMarca,
-            "idTipo": modelo_idTipo
-        }
+        if modelo_idMarca in MARCAS:
+            MODELOS[modelo_idModelo] = {
+                "idModelo": modelo_idModelo,
+                "denominacao": modelo_denominacao,
+                "idMarca": modelo_idMarca,
+                "idTipo": modelo_idTipo
+            }
 
 with open('./csv/modelos-caminhao.csv', newline='') as csvfile:
     rowreader = csv.reader(csvfile, delimiter=';')
@@ -179,12 +181,47 @@ with open('./csv/modelos-caminhao.csv', newline='') as csvfile:
         modelo_denominacao = row[2]
         modelo_idMarca = row[1]
         modelo_idTipo = "3"
-        MODELOS[modelo_idModelo] = {
-            "idModelo": modelo_idModelo,
-            "denominacao": modelo_denominacao,
-            "idMarca": modelo_idMarca,
-            "idTipo": modelo_idTipo
-        }
+        if modelo_idMarca in MARCAS:
+            MODELOS[modelo_idModelo] = {
+                "idModelo": modelo_idModelo,
+                "denominacao": modelo_denominacao,
+                "idMarca": modelo_idMarca,
+                "idTipo": modelo_idTipo
+            }
+
+CATEGORIAS_CNH = {
+    "ACC": {"idCategoriaCNH": "ACC", "descricao": "Habilita pessoas conduzam veículos de duas rodas com até 50 cm3 de cilindrada, as conhecidas \"cinquentinhas\"."},
+    "A": {"idCategoriaCNH": "A", "descricao": "Habilita a conduzir veículos de duas ou três rodas, com mais que 50 de cilindrada. Além disso, também é possível conduzir os ciclomotores da categoria ACC."},
+    "B": {"idCategoriaCNH": "B", "descricao": "Habilita o condutor a conduzir veículos de quatro rodas com até 3,5 toneladas de peso bruto total e capacidade para até oito passageiros, além do motorista (nove ocupantes no total). Quadriciclos estão inclusos nesta classe."},
+    "C": {"idCategoriaCNH": "C", "descricao": "Habilita o condutor a dirigir todos os tipos de automóveis da categoria B, e também os veículos de carga, não articulados, com mais de 3,5 toneladas de peso bruto total. São exemplos os caminhões, tratores, máquinas agrícolas e de movimentação de carga."},
+    "D": {"idCategoriaCNH": "D", "descricao": "Habilita o condutor a dirigir veículos para o transporte de passageiros que acomodem mais de 8 passageiros. Aqui, entram os ônibus, micro-ônibus e vans. Com ela, o condutor também pode comandar todos os veículos inclusos nos tipos de CNH B e C."},
+    "E": {"idCategoriaCNH": "E", "descricao": "Todos os veículos inclusos nos tipos de CNH B, C e D. Além disso, ele também pode dirigir veículos com unidades acopladas que excedam 6 toneladas. Aqui estão as carretas e caminhões com reboques e semirreboques articulados. Por fim, é necessário ter a carteira E para conduzir carros puxando trailers."}
+}
+
+CONDUTORES = {}
+cpfs = set()
+bairros_keys = [x for x in BAIRROS.keys()]
+contador = 1
+quantidade_condutores = randint(config.CONDUTORES_MIN, config.CONDUTORES_MAX)
+while contador <= quantidade_condutores:
+
+    cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
+    while cpf in cpfs:
+        cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
+    bairro = BAIRROS[choice(bairros_keys)]
+
+    CONDUTORES[str(contador)] = {
+        "idCadastro": str(contador),
+        "cpf": cpf,
+        "nome": fake.name_female() if randint(1, 2) % 2 == 0 else fake.name_male(),
+        "dataNasc": fake.date_between(start_date="-60y", end_date="-18y"),
+        "idCategoriaCNH": "ABCDE"[randint(0, 4)],
+        "endereco": fake.street_address(),
+        "bairro": bairro["nome"],
+        "idCidade": bairro["idCidade"],
+        "situacaoCNH": "R"
+    }
+    contador += 1
 
 ESPECIES = {
     "1": {"idEspecie": '1', "descricao": "de passageiros"},
@@ -196,36 +233,15 @@ ESPECIES = {
     "7": {"idEspecie": '7', "descricao": "de coleção"}
 }
 
-CATEGORIAS_CNH = {
-    "ACC": {"idCategoriaCNH": "ACC", "descricao": "Habilita pessoas conduzam veículos de duas rodas com até 50 cm3 de cilindrada, as conhecidas \"cinquentinhas\"."},
-    "A": {"idCategoriaCNH": "A", "descricao": "Habilita a conduzir veículos de duas ou três rodas, com mais que 50 de cilindrada. Além disso, também é possível conduzir os ciclomotores da categoria ACC."},
-    "B": {"idCategoriaCNH": "B", "descricao": "Habilita o condutor a conduzir veículos de quatro rodas com até 3,5 toneladas de peso bruto total e capacidade para até oito passageiros, além do motorista (nove ocupantes no total). Quadriciclos estão inclusos nesta classe."},
-    "C": {"idCategoriaCNH": "C", "descricao": "Habilita o condutor a dirigir todos os tipos de automóveis da categoria B, e também os veículos de carga, não articulados, com mais de 3,5 toneladas de peso bruto total. São exemplos os caminhões, tratores, máquinas agrícolas e de movimentação de carga."},
-    "D": {"idCategoriaCNH": "D", "descricao": "Habilita o condutor a dirigir veículos para o transporte de passageiros que acomodem mais de 8 passageiros. Aqui, entram os ônibus, micro-ônibus e vans. Com ela, o condutor também pode comandar todos os veículos inclusos nos tipos de CNH B e C."},
-    "E": {"idCategoriaCNH": "E", "descricao": "Todos os veículos inclusos nos tipos de CNH B, C e D. Além disso, ele também pode dirigir veículos com unidades acopladas que excedam 6 toneladas. Aqui estão as carretas e caminhões com reboques e semirreboques articulados. Por fim, é necessário ter a carteira E para conduzir carros puxando trailers."}
-}
 
-PROPRIETARIOS = {}
-cpfs = set()
-bairros_keys = [x for x in BAIRROS.keys()]
+CATEGORIAS_VEICULO = {}
 contador = 1
-quantidade_protietario = randint(config.PROPRIETARIOS_MIN, config.PROPRIETARIOS_MAX)
-while contador <= quantidade_protietario:
-
-    cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
-    while cpf in cpfs:
-        cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
-    bairro = BAIRROS[choice(bairros_keys)]
-
-    PROPRIETARIOS[str(contador)] = {
-        "idCadastro": str(contador),
-        "cpf": cpf,
-        "nome": fake.name_female() if randint(1, 2) % 2 == 0 else fake.name_male(),
-        "dataNasc": '1989-01-01',
-        "idCategoriaCNH": "ABCDE"[randint(0, 4)],
-        "endereco": fake.street_address() + ", " + fake.building_number(),
-        "bairro": bairro["nome"],
-        "idCidade": bairro["idCidade"],
-        "situacaoCNH": "R"
-    }
-    contador += 1
+for key in ESPECIES:
+    categorias = ['Particular', 'Oficial', 'Aprendizagem', 'Aluguel', 'Representação Diplomática']
+    for categoria in categorias:
+        CATEGORIAS_VEICULO[str(contador)] = {
+            "idCategoria": str(contador),
+            "descricao": categoria,
+            "idEspecie": key
+        }
+        contador += 1
