@@ -60,7 +60,21 @@ def create_sql_categoriaVeiculo(categoriaVeiculo):
     idCategoria = categoriaVeiculo["idCategoria"]
     descricao = categoriaVeiculo["descricao"]
     idEspecie = categoriaVeiculo["idEspecie"]
-    return f"INSERT INTO especie (idCategoria, descricao, idEspecie) VALUES ({clean_for_sql(idCategoria)}, '{clean_for_sql(descricao)}', {clean_for_sql(idEspecie)});"
+    return f"INSERT INTO categoria_veiculo (idCategoria, descricao, idEspecie) VALUES ({clean_for_sql(idCategoria)}, '{clean_for_sql(descricao)}', {clean_for_sql(idEspecie)});"
+
+def create_sql_veiculo(categoriaVeiculo):
+    renavam = categoriaVeiculo["renavam"]
+    placa = categoriaVeiculo["placa"]
+    ano = categoriaVeiculo["ano"]
+    idCategoria = categoriaVeiculo["idCategoria"]
+    idProprietario = categoriaVeiculo["idProprietario"]
+    idModelo = categoriaVeiculo["idModelo"]
+    idCidade = categoriaVeiculo["idCidade"]
+    dataCompra = categoriaVeiculo["dataCompra"]
+    dataAquisicao = categoriaVeiculo["dataAquisicao"]
+    valor = categoriaVeiculo["valor"]
+    situacao = categoriaVeiculo["situacao"]
+    return f"INSERT INTO veiculo (renavam, placa, ano, idCategoria, idProprietario, idModelo, idCidade, dataCompra, dataAquisicao, valor, situacao) VALUES ('{clean_for_sql(renavam)}', '{clean_for_sql(placa)}', {clean_for_sql(ano)}, {clean_for_sql(idCategoria)}, {clean_for_sql(idProprietario)}, {clean_for_sql(idModelo)}, '{clean_for_sql(idCidade)}', '{clean_for_sql(dataCompra)}', '{clean_for_sql(dataAquisicao)}', '{clean_for_sql(valor)}', '{clean_for_sql(situacao)}');"
 
 
 def output(saida):
@@ -100,3 +114,6 @@ if __name__ == "__main__":
     
     for key in data.CATEGORIAS_VEICULO:
         output(create_sql_categoriaVeiculo(data.CATEGORIAS_VEICULO[key]))
+    
+    for key in data.VEICULOS:
+        output(create_sql_veiculo(data.VEICULOS[key]))

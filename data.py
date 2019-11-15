@@ -4,6 +4,8 @@
 import csv
 from faker import Faker
 from random import randint, choice
+from datetime import date
+
 import config
 
 fake = Faker('pt_BR')
@@ -24,6 +26,19 @@ def criar_sigla_cidade(nome):
 def _pegar_letra_aleatoria(texto):
     texto = [x for x in texto if x.isalpha() and x.isascii()]
     return texto[randint(0, len(texto)-1)]
+
+def placaToRenavam (placa):
+    renavam = str(ord(placa[0])) + str(ord(placa[1])) + str(ord(placa[2]))
+    renavam += placa[3:]
+
+    numeros_validador = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3]
+    acumulador = 0
+    for i in range(10):
+        acumulador += int(renavam[9-i]) * numeros_validador[i]
+    acumulador *= 10
+    
+    renavam += str(acumulador % 11)
+    return renavam
 
 ESTADOS = {
     "AC": {"uf": "AC", "nome": "Acre"},
@@ -208,16 +223,18 @@ while contador <= quantidade_condutores:
     cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
     while cpf in cpfs:
         cpf = "".join([x for x in fake.cpf() if x.isnumeric()])
-    bairro = BAIRROS[choice(bairros_keys)]
+    bairro_hash = choice(bairros_keys)
+    bairro = BAIRROS[bairro_hash]
 
     CONDUTORES[str(contador)] = {
         "idCadastro": str(contador),
         "cpf": cpf,
         "nome": fake.name_female() if randint(1, 2) % 2 == 0 else fake.name_male(),
-        "dataNasc": fake.date_between(start_date="-60y", end_date="-18y"),
+        "dataNasc": fake.date_of_birth(minimum_age=18, maximum_age=80),
         "idCategoriaCNH": "ABCDE"[randint(0, 4)],
         "endereco": fake.street_address(),
         "bairro": bairro["nome"],
+        "_bairro_hash": bairro_hash,
         "idCidade": bairro["idCidade"],
         "situacaoCNH": "R"
     }
@@ -245,3 +262,36 @@ for key in ESPECIES:
             "idEspecie": key
         }
         contador += 1
+
+VEICULOS = {}
+placas = set()
+condurores_keys = [x for x in CONDUTORES.keys()]
+modelos_keys = [x for x in MODELOS.keys()]
+categoria_veiculo_keys = [x for x in CATEGORIAS_VEICULO.keys()]
+quantidade_veiculos = randint(config.VEICULOS_MIN, config.VEICULOS_MAX)
+for _ in range(1, quantidade_veiculos):
+    placa = "".join([x for x in fake.license_plate() if x != '-'])
+    while placa in placas:
+        placa = "".join([x for x in fake.license_plate() if x != '-'])
+        
+    bairro = BAIRROS[choice(bairros_keys)]
+
+    renavam = placaToRenavam(placa)
+
+    proprietario = choice(condurores_keys)
+    ano = fake.year()
+    dataCompra =  fake.date_between_dates(date_start=date(int(ano),1,1), date_end=date(int(ano),12,31))
+    VEICULOS[renavam] = {
+        "renavam": renavam,
+        "placa": placa,
+        "ano": ano,
+        "idCategoria": choice(categoria_veiculo_keys),
+        "idProprietario": proprietario,
+        "idModelo": choice(modelos_keys),
+        "idCidade": BAIRROS[CONDUTORES[proprietario]["_bairro_hash"]]["idCidade"],
+        "dataCompra": dataCompra,
+        "dataAquisicao": dataCompra,
+        "valor": fake.pydecimal(left_digits=5, right_digits=2, positive=True),
+        "situacao": "R"
+    }
+
