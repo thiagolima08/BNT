@@ -333,12 +333,12 @@ for key in VEICULOS:
                 "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
                 "pago": "N",
             }
-            veiculo["situacao"] = "B"
+            VEICULOS[key]["situacao"] = "B"
             break
         
         inativo = randint(0, 100) <= config.VEICULOS_INATIVO_CHANCE
         if inativo:
-            veiculo["situacao"] = "I"
+            VEICULOS[key]["situacao"] = "I"
             break
         
         LICENCIAMENTOS[licenciamento_hash] = {
