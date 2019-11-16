@@ -319,6 +319,9 @@ for _ in range(1, quantidade_veiculos):
 
 
 LICENCIAMENTOS = {}
+TRANSFERENCIAS = {}
+contador_transferencia = 1
+condurores_keys = [x for x in CONDUTORES.keys()]
 for key in VEICULOS:
     veiculo = VEICULOS[key]
     ano_start = int(veiculo["ano"])
@@ -347,3 +350,16 @@ for key in VEICULOS:
             "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
             "pago": "S",
         }
+        transferencia = randint(0, 100) <= config.TRANSFERENCIA_CHANCE
+        if transferencia:
+            dataCompra =  fake.date_between_dates(date_start=date(int(ano),1,1), date_end=date(int(ano),12,31))
+            proprietario = choice(condurores_keys)
+            TRANSFERENCIAS[contador_transferencia] = {
+                "idHistorico": contador_transferencia,
+                "renavam": veiculo["renavam"],
+                "idProprietario": CONDUTORES[proprietario]["idCadastro"],
+                "dataCompra": dataCompra,
+                "dataVenda": dataCompra
+            }
+            VEICULOS[key]["dataAquisicao"] = dataCompra
+            contador_transferencia += 1

@@ -84,6 +84,15 @@ def create_sql_licenciamento(licenciamento):
 
     return f"INSERT INTO licenciamento (ano, renavam, dataVenc, pago) VALUES ({clean_for_sql(ano)}, '{clean_for_sql(renavam)}', '{clean_for_sql(dataVenc)}', '{clean_for_sql(pago)}');"
 
+def create_sql_transferencia(transferencia):
+    idHistorico = transferencia["idHistorico"]
+    renavam = transferencia["renavam"]
+    idProprietario = transferencia["idProprietario"]
+    dataCompra = transferencia["dataCompra"]
+    dataVenda = transferencia["dataVenda"]
+
+    return f"INSERT INTO transferencia (idHistorico, renavam, idProprietario, dataCompra, dataVenda) VALUES ({clean_for_sql(idHistorico)}, '{clean_for_sql(renavam)}', {clean_for_sql(idProprietario)}, '{clean_for_sql(dataCompra)}', '{clean_for_sql(dataVenda)}');"
+
 def output(saida):
     with open(SQL_FILE_PATH, "a") as sql_file:
         sql_file.write(saida + "\r\n")
@@ -127,3 +136,6 @@ if __name__ == "__main__":
     
     for key in data.LICENCIAMENTOS:
         output(create_sql_licenciamento(data.LICENCIAMENTOS[key]))
+    
+    for key in data.TRANSFERENCIAS:
+        output(create_sql_transferencia(data.TRANSFERENCIAS[key]))
