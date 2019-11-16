@@ -321,14 +321,29 @@ for _ in range(1, quantidade_veiculos):
 LICENCIAMENTOS = {}
 for key in VEICULOS:
     veiculo = VEICULOS[key]
-    licenciamento_hash = veiculo["ano"] + "-" + veiculo["renavam"]
-
-    LICENCIAMENTOS[licenciamento_hash] = {
-        "ano": veiculo["ano"],
-        "renavam": veiculo["renavam"],
-        "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
-        "pago": "S",
-
-    }
-
-print(LICENCIAMENTOS)
+    ano_start = int(veiculo["ano"])
+    ano_end = 2020
+    for ano in range(ano_start, ano_end):
+        licenciamento_hash = str(ano) + "-" + veiculo["renavam"]
+        bloqueado = randint(0, 100) <= config.VEICULOS_BLOQUEADO_CHANCE
+        if bloqueado:
+            LICENCIAMENTOS[licenciamento_hash] = {
+                "ano": ano,
+                "renavam": veiculo["renavam"],
+                "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
+                "pago": "N",
+            }
+            veiculo["situacao"] = "B"
+            break
+        
+        inativo = randint(0, 100) <= config.VEICULOS_INATIVO_CHANCE
+        if inativo:
+            veiculo["situacao"] = "I"
+            break
+        
+        LICENCIAMENTOS[licenciamento_hash] = {
+            "ano": ano,
+            "renavam": veiculo["renavam"],
+            "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
+            "pago": "S",
+        }
