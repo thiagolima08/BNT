@@ -40,6 +40,28 @@ def placaToRenavam (placa):
     renavam += str((acumulador % 11) % 10)
     return renavam
 
+def pegar_data_vencimento(placa, ano):
+    n = placa[-1]
+    if n == "1":
+        return ano + "-03-28"
+    if n == "2":
+        return ano + "-04-30"
+    if n == "3":
+        return ano + "-05-30"
+    if n == "4":
+        return ano + "-06-29"
+    if n == "5":
+        return ano + "-07-31"
+    if n == "6":
+        return ano + "-08-31"
+    if n == "7":
+        return ano + "-09-28"
+    if n == "8":
+        return ano + "-10-31"
+    if n == "9":
+        return ano + "-11-30"
+    return ano + "-12-28"
+
 ESTADOS = {
     "AC": {"uf": "AC", "nome": "Acre"},
     "AL": {"uf": "AL", "nome": "Alagoas"},
@@ -295,3 +317,18 @@ for _ in range(1, quantidade_veiculos):
         "situacao": "R"
     }
 
+
+LICENCIAMENTOS = {}
+for key in VEICULOS:
+    veiculo = VEICULOS[key]
+    licenciamento_hash = veiculo["ano"] + "-" + veiculo["renavam"]
+
+    LICENCIAMENTOS[licenciamento_hash] = {
+        "ano": veiculo["ano"],
+        "renavam": veiculo["renavam"],
+        "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
+        "pago": "S",
+
+    }
+
+print(LICENCIAMENTOS)
