@@ -379,3 +379,27 @@ with open('./csv/infracoes.csv', newline='') as csvfile:
             "pontos": row[2]
         }
         contador += 1
+
+MULTAS = {}
+infracoes_keys = [x for x in INFRACOES.keys()]
+contador = 1
+for key in VEICULOS:
+    veiculo = VEICULOS[key]
+    multar = randint(0, 100) <= config.MULTAS_CHANCE
+    if not multar:
+        continue
+    infracao = INFRACOES[choice(infracoes_keys)]
+    MULTAS[str(contador)] = {
+        "idMulta": str(contador),
+        "renavam": veiculo['renavam'],
+        "idInfracao": infracao["idInfracao"],
+        "idCondutor": veiculo["idProprietario"],
+        "dataInfracao": veiculo["dataCompra"],
+        "dataVencimento": veiculo["dataCompra"],
+        "dataPagamento": veiculo["dataCompra"],
+        "valor": infracao["valor"],
+        "juros": 0,
+        "valorFinal": infracao["valor"],
+        "pago": "S"
+    }
+    contador += 1

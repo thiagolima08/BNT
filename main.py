@@ -100,6 +100,21 @@ def create_sql_infracoes(infracao):
     pontos = infracao["pontos"]
     return f"INSERT INTO infracao (idInfracao,descricao,valor,pontos) VALUES ({clean_for_sql(idInfracao)}, '{clean_for_sql(descricao)}', {clean_for_sql(valor)}, {clean_for_sql(pontos)});"
 
+def create_sql_multas(multa):
+    idMulta = multa["idMulta"]
+    renavam = multa["renavam"]
+    idInfracao = multa["idInfracao"]
+    idCondutor = multa["idCondutor"]
+    dataInfracao = multa["dataInfracao"]
+    dataVencimento = multa["dataVencimento"]
+    dataPagamento = multa["dataPagamento"]
+    valor = multa["valor"]
+    juros = multa["juros"]
+    valorFinal = multa["valorFinal"]
+    pago = multa["pago"]
+
+    return f"INSERT INTO multa (idMulta,renavam,idInfracao,idCondutor,dataInfracao,dataVencimento,dataPagamento,valor,juros,valorFinal,pago) VALUES ({clean_for_sql(idMulta)}, '{clean_for_sql(renavam)}', {clean_for_sql(idInfracao)}, {clean_for_sql(idCondutor)}, '{clean_for_sql(dataInfracao)}', '{clean_for_sql(dataVencimento)}', '{clean_for_sql(dataPagamento)}', {clean_for_sql(valor)}, {clean_for_sql(juros)}, {clean_for_sql(valorFinal)}, '{clean_for_sql(pago)}');"
+
 def output(saida):
     with open(SQL_FILE_PATH, "a") as sql_file:
         sql_file.write(saida + "\r\n")
@@ -149,3 +164,6 @@ if __name__ == "__main__":
     
     for key in data.INFRACOES:
         output(create_sql_infracoes(data.INFRACOES[key]))
+    
+    for key in data.MULTAS:
+        output(create_sql_multas(data.MULTAS[key]))
