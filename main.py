@@ -93,6 +93,13 @@ def create_sql_transferencia(transferencia):
 
     return f"INSERT INTO transferencia (idHistorico, renavam, idProprietario, dataCompra, dataVenda) VALUES ({clean_for_sql(idHistorico)}, '{clean_for_sql(renavam)}', {clean_for_sql(idProprietario)}, '{clean_for_sql(dataCompra)}', '{clean_for_sql(dataVenda)}');"
 
+def create_sql_infracoes(infracao):
+    idInfracao = infracao["idInfracao"]
+    descricao = infracao["descricao"]
+    valor = infracao["valor"]
+    pontos = infracao["pontos"]
+    return f"INSERT INTO infracao (idInfracao,descricao,valor,pontos) VALUES ({clean_for_sql(idInfracao)}, '{clean_for_sql(descricao)}', {clean_for_sql(valor)}, {clean_for_sql(pontos)});"
+
 def output(saida):
     with open(SQL_FILE_PATH, "a") as sql_file:
         sql_file.write(saida + "\r\n")
@@ -139,3 +146,6 @@ if __name__ == "__main__":
     
     for key in data.TRANSFERENCIAS:
         output(create_sql_transferencia(data.TRANSFERENCIAS[key]))
+    
+    for key in data.INFRACOES:
+        output(create_sql_infracoes(data.INFRACOES[key]))

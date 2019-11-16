@@ -70,7 +70,7 @@ CREATE TABLE condutor (
     dataNasc       DATE      NOT NULL CHECK (extract(year from age(dataNasc)) >= 18),
     idCategoriaCNH CHAR (3)  NOT NULL,
     endereco       CHAR (50) NOT NULL,
-    bairro         CHAR (30) NOT NULL,
+    bairro         CHAR (50) NOT NULL,
     idCidade       CHAR (3)  NOT NULL,
     situacaoCNH    CHAR (1)  NOT NULL DEFAULT 'R' CHECK (situacaoCNH = 'R' OR situacaoCNH = 'S'),
 
@@ -139,7 +139,7 @@ CREATE TABLE transferencia (
 
 CREATE TABLE infracao (
     idInfracao INTEGER      NOT NULL,
-    descricao  VARCHAR (50) NOT NULL,
+    descricao  VARCHAR (150) NOT NULL,
     valor      NUMERIC      NOT NULL,
     pontos     INTEGER      NOT NULL,
 

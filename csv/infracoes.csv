@@ -1,0 +1,167 @@
+"Dirigir veículo sem possuir CNH","880.41",7
+"Dirigir veículo com CNH cassada","1467.35",7
+"Dirigir com CNH de categoria errada","880.41",7
+"Dirigir com CNH vencida + 30 dias","293.47",7
+"Dirigir sem usar lentes corretoras de visão","293.47",7
+"Dirigir sob influência de álcool","2934.70",7
+"Recusar o teste do bafômetro","2934.70",7
+"Entregar direção a pessoa habilitada sem condições de dirigir","293.47",7
+"Deixar o condutor ou passageiro de usar o cinto de segurança","195.23",5
+"Transportar crianças de forma irregular","293.47",7
+"Dirigir sem atenção ou sem os cuidados indispensáveis à segurança","88.38",3
+"Dirigir ameaçando os pedestres ou os demais veículos","2934.70",7
+"Jogar água sobre os pedestres ou veículos","130.16",4
+"Atirar do veículo ou abandonar na vi a objetos ou substâncias","130.16",4
+"Disputar corrida","2934.70",7
+"Realizar manobra perigosa","2934.70",7
+"Condutor envolvido em acidente que deixar de prestar socorro","1467.35",7
+"Condutor envolvido em acidente não adotar medida de segurança no local","1467.35",7
+"Condutor envolvido em acidente não facilitar o trabalho da perícia","1467.35",7
+"Condutor envolvido em acidente se recusar a mover o veículo do local","1467.35",7
+"Condutor envolvido em acidente não prestar informações para o B.O","1467.35",7
+"Deixar de prestar socorro à vítima de acidente quando solicitado","195.23",5
+"Deixar o condutor, envolvido em acidente sem vítima, de remover o veículo","130.16",4
+"Reparar veículo na faixa de rolamento quando for possível a remoção","195.23",5
+"Reparar veículo nas demais vias quando for possível a remoção","130.16",4
+"Ter seu veículo imobilizado na via por falta de combustível","130.16",4
+"Estacionar o veículo nas esquinas","130.16",4
+"Estacionar veículo afastado da guia da calçada (50cm-1m)","88.38",3
+"Estacionar veículo afastado da guia da calçada (+1m)","195.23",5
+"Estacionar veículo em desacordo com o CTB","130.16",4
+"Estacionar veículo na pista","293.47",7
+"Estacionar veículo sobre hidrantes de incêndio","130.16",4
+"Estacionar veículo nos acostamentos","195.23",5
+"Estacionar veículo no passeio, faixa de pedestre, ciclovia ou ciclofaixa","195.23",5
+"Estacionar veículo em garagem","130.16",4
+"Estacionar veículo impedindo a movimentação de outro veículo","130.16",4
+"Estacionar veículo em fila dupla","195.23",5
+"Estacionar o veículo em cruzamento","195.23",5
+"Estacionar o veículo em parada de ônibus","130.16",4
+"Estacionar o veículo nos viadutos, pontes e túneis","195.23",5
+"Estacionar o veículo na contramão de direção","130.16",4
+"Estacionar o veículo pesado em aclive ou declive sem calço","195.23",5
+"Estacionar o veículo em desacordo com a sinalização","195.23",5
+"Estacionar o veículo em locais proibidos (placa: Proibido Estacionar) ","130.16",4
+"Estacionar o veículo em locais proibidos (placa: Proibido Parar e Estacionar) ","195.23",5
+"Parar veículo nas esquinas","88.38",3
+"Parar veículo afastado da guia da calçada (50cm-1m)","88.38",3
+"Parar veículo afastado da guia da calçada (+1m)","130.16",5
+"Parar veículo em desacordo com o CTB","88.38",3
+"Parar veículo na pista","195.23",5
+"Parar veículo na faixa de pedestre","88.38",3
+"Parar veículo na área de cruzamento","130.16",5
+"Parar veículo nos viadutos, pontes e túneis","130.16",5
+"Parar veículo na contramão de direção","130.16",5
+"Parar veículo em locais públicos (placa - Proibido Parar)","130.16",5
+"Parar veículo sobre a faixa de pedestres na mudança de sinal","130.16",3
+"Transitar na faixa direita, exclusiva para um tipo de veículo","88.38",3
+"Transitar na faixa esquerda, exclusiva para um tipo de veículo","293.47",7
+"Deixar de conservar o veículo na faixa correta","130.16",4
+"Deixar de conservar o veículo na faixa da direita","130.16",4
+"Transitar pela contramão em via de mão dupla, salva ultrapassagem","195.23",5
+"Transitar pela contramão em via de sentido único","293.47",7
+"Transitar em locais e horários não permitidos","130.16",4
+"Transitar ao lado de outro veículo perturbando o trânsito","130.16",4
+"Deixar de dar passagem para veículo em serviço de urgência","293.47",7
+"Seguir veículo em serviço de urgência","195.23",5
+"Forçar passagem entre veículos","2934.70",7
+"Deixa de guardar distância de segurança","195.23",5
+"Transitar com o veículo em local proibido (calçadas, ciclovias etc)","880.41",7
+"Transitar em marcha ré, salvo para pequenas manobras sesguras","195.23",5
+"Desobedecer às ordens de autoridade competente de trânsito","195.23",5
+"Deixar de sinalizar a parada do veículo ou mudança de direção","195.23",5
+"Não mudar de pista com antecedência para dobrar","130.16",4
+"Deixar de dar passagem pela esquerda, quando solicitado","130.16",4
+"Ultrapassar pela direita","130.16",4
+"Ultrapassar pela direita veículo de transporte coletivo parado para embarque","293.47",7
+"Deixar de guardar distância lateral (1m50cm) ao ultrapassar bicicleta","130.16",4
+"Ultrapassar veículo pelo acostament","1467.35",7
+"Ultrapassar veículo em intersecções e passagens de nível","1467.35",7
+"Ultrapassar pela contramão em curvas, declives e aclives","1467.35",7
+"Ultrapassar pela contramão veículo nas faixas de pedestres ","1467.35",7
+"Ultrapassar pela contramão veículo em pontes, viadutos ou túneis","1467.35",7
+"Ultrapassar pela contramão veículo para por impedimento à circulação","1467.35",7
+"Ultrapassar em faixa amarela contínua","1467.35",7
+"Não aguardar no acostamento a oportunidade de cruzar a pista","195.23",5
+"Ultrapassar cortejo, préstito, desfile e formações militares sem autorização","88.38",3
+"Executar operação de retorno em locais proibidos pela sinalização","293.47",7
+"Executar retorno nas curvas, aclives, declives, pontes, viadutos e túneis","293.47",7
+"Executar retorno entrando na contramão da via transversal ","293.47",7
+"Executar retorno com prejuízo de circulação ou de segurança","293.47",7
+"Executar operação de conversão à direita ou à esquerda em locais proibidos","195.23",5
+"Avançar o sinal vermelho de semáforo ou de parada obrigatória","293.47",7
+"Transpor bloqueio viário sem autorização","195.23",5
+"Deixar de adentrar às áreas destinadas à pesagem de veículos","195.23",5
+"Evadir-se para não efetuar o pagamento do pedágio","195.23",5
+"Transpor, sem autorização, bloqueio viário policial","293.47",7
+"Ultrapassar veículos em fila, parados em sinal luminoso ou qualquer obstáculo","293.47",5
+"Deixar de parar o veículo antes de transpor linha férrea","293.47",7
+"Deixar de parar o veículo por agrupamento de pessoas (passeatas)","293.47",7
+"Deixar de parar o veículo por agrupamento de pessoas (cortejos)","195.23",5
+"Deixar de dar preferência a pedestre que se encontre na faixa","293.47",7
+"Não deixar pedestre concluir a travessia, mesmo com sinal verde","293.47",7
+"Deixar de dar preferência a portadores de deficiência, crianças, idosos e gestantes","293.47",7
+"Deixar de dar preferência a pedestre quando houver iniciado a travessia","195.23",5
+"Deixar de dar preferência a pedestre que esteja atravessando a via transversal para onde se dirige o veículo","195.23",5
+"Deixar de dar preferência em interseção a veículo circulando por rodovia, rotatória ou que venha da direita","195.23",5
+"Entrar ou sair da áreas lindeiras sem as precauções de segurança","130.16",4
+"Entrar ou sair da fila de veículos estacionados sem dar preferência de passagem a pedestre e a outros veículos","130.16",4
+"Transitar em velocidade superior à máxima permitida em até 20%","130.16",4
+"Transitar em velocidade superior à máxima permitida de 20% até 50%","195.23",5
+"Transitar em velocidade superior à máxima permitida em mais de 50%","880.41",7
+"Transitar em velocidade inferior à metade permitida ","130.16",4
+"Deixar de reduzi a velocidade ao se aproximar de passeatas, aglomerações, cortejos, préstitos e desfiles","293.47",7
+"Deixar de reduzir a velocidade onde o trânsito esteja sendo controlado por agente","195.23",5
+"Deixar de reduzir a velocidade ao aproximar-se de calçada ou acostamento","195.23",5
+"Deixar de reduzir a velocidade ao aproximar-se de interseção não sinalizada","195.23",5
+"Deixar de reduzir a velocidade nas vias rurais cuja faixa de domínio não esteja cercada","195.23",5
+"Deixar de reduzir a velocidade quando houver má visibilidade","195.23",5
+"Deixar de reduzir a velocidade quando houver animais na pista","195.23",5
+"Deixar de reduzir a velocidade em declive","195.23",5
+"Deixar de reduzir a velocidade para ultrapassar ciclista","195.23",5
+"Deixar de reduzir a velocidade perto de grande movimentação de pedestres (escolas, hospitais, etc)","293.47",7
+"Portar no veículo placas de identificação irregulares","130.16",4
+"Transitar com o farol desregulado ou com luz alta","195.23",5
+"Fazer uso de luz alta em vias providas de iluminação pública","88.38",3
+"Deixar de sinalizar a via quando tiver de remover o veículo da pista ou permanecer no acostamento","195.23",5
+"Usar buzina em desacordo com o estabelecido pelo CONTRAN","88.38",3
+"Conduzir veículo com placa ou qualquer elemento de identificação violado ou falsificado","293.47",7
+"Transportar passageiros em compartimento de carga","293.47",7
+"Conduzir veículo sem qualquer uma das placas de identificação","293.47",7
+"Conduzir veículo que não esteja devidamente licenciado","293.47",7
+"Conduzir veículo com descarga livre  silenciador defeituoso","195.23",5
+"Conduzir veículo com registrador de velocidade viciado ou defeituoso, quando obrigatório","195.23",5
+"Conduzir veículo adesivado, salvo quando autorizado pelo CTB","195.23",5
+"Conduzir o veículo com vidros cobertos por películas, painéis decorativos ou pinturas","195.23",5
+"Conduzir o veículo sem acionar o limpador de para -brisa sob chuva","195.23",5
+"Conduzir o veículo com defeito de iluminação, de sinalização ou com lâmpadas queimads","130.16",4
+"Transitar com o veículo derramando combustível ou lubrificante ou qualquer objeto que traga risco","293.47",7
+"Transitar com veículo com excesso de peso","130.16",4
+"Transitar com veículo com lotação excedente","130.16",4
+"Conduzir veículo sem os documentos obrigatórios referidos no CTB","88.38",3
+"Deixa de efetuar o registro do veículo no prazo de 30 dias","195.23",5
+"Falsificar ou adulterar documento de habilitação e identificação do veículo","293.47",7
+"Recusar-se a entregar os documentos à autoridade","293.47",7
+"Deixar o responsável de promover a baixa de veículo irrecuperável ou definitivamente desmontado","195.23",5
+"Deixar de atualizar o cadastro de registro do veículo ou de habilitação do condutor","88.38",3
+"Fazer falsa declaração de domicílio para fins de registro, licenciamento ou habilitação","293.47",7
+"Conduzir moto sem usar capacete com viseira ou óculos e vestuário de acordo com o CONTRAN","293.47",7
+"Conduzir moto com faróis apagados","293.47",7
+"Conduzir moto rebocando outro veículo","195.23",5
+"Conduzir moto sem segurar o guidon com ambas as mãos","195.23",5
+"Conduzir moto transportando carga incompatível","195.23",5
+"Conduzir moto efetuando transporte remunerado em desacordo com a lei","195.23",5
+"Utilizar a via para depósito de mercadorias, materiais ou equipamentos, sem autorização","195.23",5
+"Não acender as luzes de posição à noite quando estiver parado para embarque ou carga de mercadorias","130.16",4
+"Deixar de manter acesa luz baixa a noite","130.16",4
+"Deixar de manter acesa luz baixa de dia nos túneis e nas rodovias","130.16",4
+"Deixar de manter acesa luz baixa de dia e de noite, tratando-se de ciclomotores","130.16",4
+"Deixar de manter a placa traseira iluminada à noite","130.16",4
+"Utilizar o pisca alerta, exceto em imobilizações ou situações de emergência","130.16",4
+"Dar sinal de luz, salvo para alertar ultrapassagem","130.16",4
+"Dirigir o veículo com o braço do lado de fora","130.16",4
+"Dirigir veículo transportando pessoas, animais ou volume à sua esquerda ou entre os braços e pernas","130.16",4
+"Dirigir veículo usando calçado que não se firme nos pés ou que comprometa a utilização dos pedais","130.16",4
+"Dirigir veículo com apenas uma das mãos, salvo quando necessário","130.16",4
+"Dirigir veículo utilizando-se de fone de ouvidos","130.16",4
+"Bloquear a via com o veículo","293.47",7

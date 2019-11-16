@@ -1,5 +1,7 @@
 # Dados de marca e modelos:
 # https://www.luiztools.com.br/post/base-de-dados-com-todas-as-marcas-e-modelos-de-veiculos/
+# Dados das infracoes:
+# https://eutenhodireito.com.br/tabela-2018-valores-tipos-multa-de-transito/
 
 import csv
 from faker import Faker
@@ -354,7 +356,7 @@ for key in VEICULOS:
         if transferencia:
             dataCompra =  fake.date_between_dates(date_start=date(int(ano),1,1), date_end=date(int(ano),12,31))
             proprietario = choice(condurores_keys)
-            TRANSFERENCIAS[contador_transferencia] = {
+            TRANSFERENCIAS[str(contador_transferencia)] = {
                 "idHistorico": contador_transferencia,
                 "renavam": veiculo["renavam"],
                 "idProprietario": CONDUTORES[proprietario]["idCadastro"],
@@ -363,3 +365,17 @@ for key in VEICULOS:
             }
             VEICULOS[key]["dataAquisicao"] = dataCompra
             contador_transferencia += 1
+
+INFRACOES = {}
+with open('./csv/infracoes.csv', newline='') as csvfile:
+    contador = 1
+    rowreader = csv.reader(csvfile, delimiter=',')
+    rows = [x for x in rowreader][1:]
+    for row in rows:
+        INFRACOES[str(contador)] = {
+            "idInfracao": contador,
+            "descricao": row[0],
+            "valor": row[1],
+            "pontos": row[2]
+        }
+        contador += 1
