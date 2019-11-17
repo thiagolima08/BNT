@@ -7,7 +7,7 @@ CREATE VIEW condutor_com_pontos AS
 
 CREATE VIEW veiculos_proprietarios AS
 (
-	SELECT vei.renavam "Renavam",vei.placa Placa,con.nome "Proprietário",mod.denominacao "Modelo",mar.nome "Marca",cid.nome "Cidade",est.nome "Estado",tip.descricao "Tipo"
+	SELECT vei.renavam "Renavam",vei.placa "Placa,con.nome "Proprietário",mod.denominacao "Modelo",mar.nome "Marca",cid.nome "Cidade",est.nome "Estado",tip.descricao "Tipo"
 	FROM veiculo vei JOIN condutor con ON vei.idProprietario = con.idCadastro JOIN modelo mod ON mod.idModelo=vei.idModelo JOIN marca mar ON mar.idMarca=mod.idMarca JOIN cidade cid ON cid.idCidade=vei.idCidade JOIN estado est ON est.uf=cid.uf JOIN tipo tip ON tip.idTipo=mod.idTipo
 );
 
