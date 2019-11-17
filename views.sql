@@ -13,6 +13,7 @@ CREATE VIEW veiculos_proprietarios AS
 
 CREATE VIEW num_infracoes_e_valores_multas AS
 (
-	SELECT COUNT(inf.idinfracao) "Quantidade de infrações", SUM(mul.valor) "Valor total de multas"
+	SELECT date_part('YEAR',dataInfracao) "Ano", date_part('MONTH',dataInfracao) "Mês", COUNT(inf.idinfracao) "Quantidade de infrações", SUM(mul.valor) "Valor total de multas"
 	FROM infracao inf JOIN multa mul ON inf.idinfracao = mul.idinfracao 
+	GROUP BY date_part('YEAR',dataInfracao),date_part('MONTH',dataInfracao)  
 );
