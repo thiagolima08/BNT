@@ -138,10 +138,10 @@ CREATE TABLE transferencia (
 );
 
 CREATE TABLE infracao (
-    idInfracao INTEGER      NOT NULL,
+    idInfracao INTEGER       NOT NULL,
     descricao  VARCHAR (150) NOT NULL,
-    valor      NUMERIC      NOT NULL,
-    pontos     INTEGER      NOT NULL,
+    valor      NUMERIC       NOT NULL,
+    pontos     INTEGER       NOT NULL,
 
     PRIMARY KEY (idInfracao)
 );
