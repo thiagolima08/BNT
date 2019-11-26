@@ -38,6 +38,7 @@ BEGIN
     LEFT JOIN condutor con ON vei.idProprietario = con.idCadastro
     LEFT JOIN modelo mod ON mod.idModelo=vei.idModelo
     LEFT JOIN marca mar ON mar.idMarca=mod.idMarca
-    WHERE vei.renavam = ren;
+    WHERE vei.renavam = ren
+    ORDER BY "Data de Venda";
 END; $$
 LANGUAGE plpgsql;
