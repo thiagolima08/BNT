@@ -1,5 +1,7 @@
 # Dados de marca e modelos:
 # https://www.luiztools.com.br/post/base-de-dados-com-todas-as-marcas-e-modelos-de-veiculos/
+# Dados das infracoes:
+# https://eutenhodireito.com.br/tabela-2018-valores-tipos-multa-de-transito/
 
 import csv
 from faker import Faker
@@ -37,8 +39,30 @@ def placaToRenavam (placa):
         acumulador += int(renavam[9-i]) * numeros_validador[i]
     acumulador *= 10
     
-    renavam += str(acumulador % 11)
+    renavam += str((acumulador % 11) % 10)
     return renavam
+
+def pegar_data_vencimento(placa, ano):
+    n = placa[-1]
+    if n == "1":
+        return ano + "-03-28"
+    if n == "2":
+        return ano + "-04-30"
+    if n == "3":
+        return ano + "-05-30"
+    if n == "4":
+        return ano + "-06-29"
+    if n == "5":
+        return ano + "-07-31"
+    if n == "6":
+        return ano + "-08-31"
+    if n == "7":
+        return ano + "-09-28"
+    if n == "8":
+        return ano + "-10-31"
+    if n == "9":
+        return ano + "-11-30"
+    return ano + "-12-28"
 
 ESTADOS = {
     "AC": {"uf": "AC", "nome": "Acre"},
@@ -295,3 +319,87 @@ for _ in range(1, quantidade_veiculos):
         "situacao": "R"
     }
 
+
+LICENCIAMENTOS = {}
+TRANSFERENCIAS = {}
+contador_transferencia = 1
+condurores_keys = [x for x in CONDUTORES.keys()]
+for key in VEICULOS:
+    veiculo = VEICULOS[key]
+    ano_start = int(veiculo["ano"])
+    ano_end = 2020
+    for ano in range(ano_start, ano_end):
+        licenciamento_hash = str(ano) + "-" + veiculo["renavam"]
+        bloqueado = randint(0, 100) <= config.VEICULOS_BLOQUEADO_CHANCE
+        if bloqueado:
+            LICENCIAMENTOS[licenciamento_hash] = {
+                "ano": ano,
+                "renavam": veiculo["renavam"],
+                "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
+                "pago": "N",
+            }
+            VEICULOS[key]["situacao"] = "B"
+            break
+        
+        inativo = randint(0, 100) <= config.VEICULOS_INATIVO_CHANCE
+        if inativo:
+            VEICULOS[key]["situacao"] = "I"
+            break
+        
+        LICENCIAMENTOS[licenciamento_hash] = {
+            "ano": ano,
+            "renavam": veiculo["renavam"],
+            "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
+            "pago": "S",
+        }
+        transferencia = randint(0, 100) <= config.TRANSFERENCIA_CHANCE
+        if transferencia:
+            dataCompra =  fake.date_between_dates(date_start=date(int(ano),1,1), date_end=date(int(ano),12,31))
+            proprietario = choice(condurores_keys)
+            TRANSFERENCIAS[str(contador_transferencia)] = {
+                "idHistorico": contador_transferencia,
+                "renavam": veiculo["renavam"],
+                "idProprietario": CONDUTORES[proprietario]["idCadastro"],
+                "dataCompra": dataCompra,
+                "dataVenda": dataCompra
+            }
+            VEICULOS[key]["dataAquisicao"] = dataCompra
+            contador_transferencia += 1
+
+INFRACOES = {}
+with open('./csv/infracoes.csv', newline='') as csvfile:
+    contador = 1
+    rowreader = csv.reader(csvfile, delimiter=',')
+    rows = [x for x in rowreader][1:]
+    for row in rows:
+        INFRACOES[str(contador)] = {
+            "idInfracao": contador,
+            "descricao": row[0],
+            "valor": row[1],
+            "pontos": row[2]
+        }
+        contador += 1
+
+MULTAS = {}
+infracoes_keys = [x for x in INFRACOES.keys()]
+contador = 1
+for key in VEICULOS:
+    veiculo = VEICULOS[key]
+    multar = randint(0, 100) <= config.MULTAS_CHANCE
+    if not multar:
+        continue
+    infracao = INFRACOES[choice(infracoes_keys)]
+    MULTAS[str(contador)] = {
+        "idMulta": str(contador),
+        "renavam": veiculo['renavam'],
+        "idInfracao": infracao["idInfracao"],
+        "idCondutor": veiculo["idProprietario"],
+        "dataInfracao": veiculo["dataCompra"],
+        "dataVencimento": veiculo["dataCompra"],
+        "dataPagamento": veiculo["dataCompra"],
+        "valor": infracao["valor"],
+        "juros": 0,
+        "valorFinal": infracao["valor"],
+        "pago": "S"
+    }
+    contador += 1

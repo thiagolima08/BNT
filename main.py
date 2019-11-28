@@ -76,6 +76,44 @@ def create_sql_veiculo(categoriaVeiculo):
     situacao = categoriaVeiculo["situacao"]
     return f"INSERT INTO veiculo (renavam, placa, ano, idCategoria, idProprietario, idModelo, idCidade, dataCompra, dataAquisicao, valor, situacao) VALUES ('{clean_for_sql(renavam)}', '{clean_for_sql(placa)}', {clean_for_sql(ano)}, {clean_for_sql(idCategoria)}, {clean_for_sql(idProprietario)}, {clean_for_sql(idModelo)}, '{clean_for_sql(idCidade)}', '{clean_for_sql(dataCompra)}', '{clean_for_sql(dataAquisicao)}', '{clean_for_sql(valor)}', '{clean_for_sql(situacao)}');"
 
+def create_sql_licenciamento(licenciamento):
+    ano = licenciamento["ano"]
+    renavam = licenciamento["renavam"]
+    dataVenc = licenciamento["dataVenc"]
+    pago = licenciamento["pago"]
+
+    return f"INSERT INTO licenciamento (ano, renavam, dataVenc, pago) VALUES ({clean_for_sql(ano)}, '{clean_for_sql(renavam)}', '{clean_for_sql(dataVenc)}', '{clean_for_sql(pago)}');"
+
+def create_sql_transferencia(transferencia):
+    idHistorico = transferencia["idHistorico"]
+    renavam = transferencia["renavam"]
+    idProprietario = transferencia["idProprietario"]
+    dataCompra = transferencia["dataCompra"]
+    dataVenda = transferencia["dataVenda"]
+
+    return f"INSERT INTO transferencia (idHistorico, renavam, idProprietario, dataCompra, dataVenda) VALUES ({clean_for_sql(idHistorico)}, '{clean_for_sql(renavam)}', {clean_for_sql(idProprietario)}, '{clean_for_sql(dataCompra)}', '{clean_for_sql(dataVenda)}');"
+
+def create_sql_infracoes(infracao):
+    idInfracao = infracao["idInfracao"]
+    descricao = infracao["descricao"]
+    valor = infracao["valor"]
+    pontos = infracao["pontos"]
+    return f"INSERT INTO infracao (idInfracao,descricao,valor,pontos) VALUES ({clean_for_sql(idInfracao)}, '{clean_for_sql(descricao)}', {clean_for_sql(valor)}, {clean_for_sql(pontos)});"
+
+def create_sql_multas(multa):
+    idMulta = multa["idMulta"]
+    renavam = multa["renavam"]
+    idInfracao = multa["idInfracao"]
+    idCondutor = multa["idCondutor"]
+    dataInfracao = multa["dataInfracao"]
+    dataVencimento = multa["dataVencimento"]
+    dataPagamento = multa["dataPagamento"]
+    valor = multa["valor"]
+    juros = multa["juros"]
+    valorFinal = multa["valorFinal"]
+    pago = multa["pago"]
+
+    return f"INSERT INTO multa (idMulta,renavam,idInfracao,idCondutor,dataInfracao,dataVencimento,dataPagamento,valor,juros,valorFinal,pago) VALUES ({clean_for_sql(idMulta)}, '{clean_for_sql(renavam)}', {clean_for_sql(idInfracao)}, {clean_for_sql(idCondutor)}, '{clean_for_sql(dataInfracao)}', '{clean_for_sql(dataVencimento)}', '{clean_for_sql(dataPagamento)}', {clean_for_sql(valor)}, {clean_for_sql(juros)}, {clean_for_sql(valorFinal)}, '{clean_for_sql(pago)}');"
 
 def output(saida):
     with open(SQL_FILE_PATH, "a") as sql_file:
@@ -117,3 +155,15 @@ if __name__ == "__main__":
     
     for key in data.VEICULOS:
         output(create_sql_veiculo(data.VEICULOS[key]))
+    
+    for key in data.LICENCIAMENTOS:
+        output(create_sql_licenciamento(data.LICENCIAMENTOS[key]))
+    
+    for key in data.TRANSFERENCIAS:
+        output(create_sql_transferencia(data.TRANSFERENCIAS[key]))
+    
+    for key in data.INFRACOES:
+        output(create_sql_infracoes(data.INFRACOES[key]))
+    
+    for key in data.MULTAS:
+        output(create_sql_multas(data.MULTAS[key]))
