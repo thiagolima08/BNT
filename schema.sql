@@ -96,17 +96,17 @@ CREATE TABLE categoria_veiculo (
 );
 
 CREATE TABLE veiculo (
-    renavam        CHAR(13) NOT NULL,
-    placa          CHAR(7)  NOT NULL,
-    ano            INTEGER  NOT NULL,
-    idCategoria    INTEGER  NOT NULL,
-    idProprietario INTEGER  NOT NULL,
-    idModelo       INTEGER  NOT NULL,
-    idCidade       CHAR (3) NOT NULL,
-    dataCompra     DATE     NOT NULL,
-    dataAquisicao  DATE     NOT NULL,
-    valor          FLOAT    NOT NULL,
-    situacao       CHAR(1)  NOT NULL DEFAULT 'R' CHECK (situacao = 'R' OR situacao = 'I' OR situacao = 'B'),
+    renavam        CHAR (13) NOT NULL,
+    placa          CHAR (7)  NOT NULL,
+    ano            INTEGER   NOT NULL,
+    idCategoria    INTEGER   NOT NULL,
+    idProprietario INTEGER   NOT NULL,
+    idModelo       INTEGER   NOT NULL,
+    idCidade       CHAR (3)  NOT NULL,
+    dataCompra     DATE      NOT NULL,
+    dataAquisicao  DATE      NOT NULL,
+    valor          FLOAT     NOT NULL,
+    situacao       CHAR (1)  NOT NULL DEFAULT 'R' CHECK (situacao = 'R' OR situacao = 'I' OR situacao = 'B'),
 
     PRIMARY KEY (renavam),
     FOREIGN KEY (idCategoria)    REFERENCES categoria_veiculo(idCategoria),
@@ -138,10 +138,10 @@ CREATE TABLE transferencia (
 );
 
 CREATE TABLE infracao (
-    idInfracao INTEGER      NOT NULL,
+    idInfracao INTEGER       NOT NULL,
     descricao  VARCHAR (150) NOT NULL,
-    valor      NUMERIC      NOT NULL,
-    pontos     INTEGER      NOT NULL,
+    valor      NUMERIC       NOT NULL,
+    pontos     INTEGER       NOT NULL,
 
     PRIMARY KEY (idInfracao)
 );
