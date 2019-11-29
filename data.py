@@ -353,19 +353,24 @@ for key in VEICULOS:
             "dataVenc": pegar_data_vencimento(veiculo["placa"], veiculo["ano"]),
             "pago": "S",
         }
+
         transferencia = randint(0, 100) <= config.TRANSFERENCIA_CHANCE
         if transferencia:
-            dataCompra =  fake.date_between_dates(date_start=date(int(ano),1,1), date_end=date(int(ano),12,31))
-            proprietario = choice(condurores_keys)
-            TRANSFERENCIAS[str(contador_transferencia)] = {
-                "idHistorico": contador_transferencia,
-                "renavam": veiculo["renavam"],
-                "idProprietario": CONDUTORES[proprietario]["idCadastro"],
-                "dataCompra": dataCompra,
-                "dataVenda": dataCompra
-            }
-            VEICULOS[key]["dataAquisicao"] = dataCompra
-            contador_transferencia += 1
+            for ano_transferencia in range(int(ano) + 1, 2020):
+                dataCompra =  fake.date_between_dates(date_start=date(int(ano_transferencia),1,1), date_end=date(int(ano_transferencia),12,31))
+                proprietario = choice(condurores_keys)
+                if ano_transferencia == 2019:
+                    VEICULOS[key]["dataAquisicao"] = dataCompra
+                else:
+                    TRANSFERENCIAS[str(contador_transferencia)] = {
+                        "idHistorico": contador_transferencia,
+                        "renavam": veiculo["renavam"],
+                        "idProprietario": CONDUTORES[proprietario]["idCadastro"],
+                        "dataCompra": veiculo["dataCompra"],
+                        "dataVenda": dataCompra
+                    }
+                    VEICULOS[key]["dataAquisicao"] = dataCompra
+                    contador_transferencia += 1
 
 INFRACOES = {
     "1": {"idInfracao": "1", "descricao":"dirigir sob a influência de álcool, conforme o artigo 165 do CTB", "valor":"880.41", "pontos":7,"suspende":True},

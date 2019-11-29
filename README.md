@@ -1,10 +1,10 @@
 # BNT
 
-- [ ] 6. Lógica do Negócio
+- [X] 6. Lógica do Negócio
 - - [x] 6.1 O cálculo do renavam
-- - [ ] 6.2 O Povoamento
+- - [X] 6.2 O Povoamento
 - - [X] 6.3 Lançamento de registros de licenciamento
-- - [ ] 6.4 Transferência de propriedade
+- - [X] 6.4 Transferência de propriedade
 - - [x] 6.5 Suspensão da CNH
 - [x] 7. Outras Tarefas
 - - [x] 7.1 Função que retorna tabela
