@@ -6,7 +6,7 @@
 import csv
 from faker import Faker
 from random import randint, choice
-from datetime import date
+from datetime import date, timedelta
 
 import config
 
@@ -260,6 +260,7 @@ while contador <= quantidade_condutores:
         "bairro": bairro["nome"],
         "_bairro_hash": bairro_hash,
         "idCidade": bairro["idCidade"],
+        "pontos":0,
         "situacaoCNH": "R"
     }
     contador += 1
@@ -366,9 +367,16 @@ for key in VEICULOS:
             VEICULOS[key]["dataAquisicao"] = dataCompra
             contador_transferencia += 1
 
-INFRACOES = {}
+INFRACOES = {
+    "1": {"idInfracao": "1", "descricao":"dirigir sob a influência de álcool, conforme o artigo 165 do CTB", "valor":"880.41", "pontos":7,"suspende":True},
+    "2": {"idInfracao": "2", "descricao":"recusar-se a fazer o teste do bafômetro", "valor":"880.41", "pontos":7,"suspende":True},
+    "3": {"idInfracao": "3", "descricao":"disputar corridas", "valor":"880.41", "pontos":7,"suspende":True},
+    "4": {"idInfracao": "4", "descricao":"fazer manobras perigosas (derrapar, deslizar pneu)", "valor":"880.41", "pontos":7,"suspende":True},
+    "5": {"idInfracao": "5", "descricao":"deixar de prestar socorro a uma vítima de acidente no qual está envolvido", "valor":"880.41", "pontos":7,"suspende":True},
+    "6": {"idInfracao": "6", "descricao":"deixar de prestar informações para o registro de boletim de ocorrência em caso de acidente", "valor":"880.41", "pontos":7,"suspende":True}
+}
 with open('./csv/infracoes.csv', newline='') as csvfile:
-    contador = 1
+    contador = 7
     rowreader = csv.reader(csvfile, delimiter=',')
     rows = [x for x in rowreader][1:]
     for row in rows:
@@ -376,30 +384,42 @@ with open('./csv/infracoes.csv', newline='') as csvfile:
             "idInfracao": contador,
             "descricao": row[0],
             "valor": row[1],
-            "pontos": row[2]
+            "pontos": row[2],
+            "suspende": False
         }
         contador += 1
 
 MULTAS = {}
 infracoes_keys = [x for x in INFRACOES.keys()]
 contador = 1
-for key in VEICULOS:
-    veiculo = VEICULOS[key]
-    multar = randint(0, 100) <= config.MULTAS_CHANCE
-    if not multar:
-        continue
-    infracao = INFRACOES[choice(infracoes_keys)]
-    MULTAS[str(contador)] = {
-        "idMulta": str(contador),
-        "renavam": veiculo['renavam'],
-        "idInfracao": infracao["idInfracao"],
-        "idCondutor": veiculo["idProprietario"],
-        "dataInfracao": veiculo["dataCompra"],
-        "dataVencimento": veiculo["dataCompra"],
-        "dataPagamento": veiculo["dataCompra"],
-        "valor": infracao["valor"],
-        "juros": 0,
-        "valorFinal": infracao["valor"],
-        "pago": "S"
-    }
-    contador += 1
+for _ in range(200):
+    for key in VEICULOS:
+        veiculo = VEICULOS[key]
+        multar = randint(0, 100) <= config.MULTAS_CHANCE
+        if not multar:
+            continue
+        dias = randint(0, 30)
+        infracao = INFRACOES[choice(infracoes_keys)]
+        if infracao["suspende"]:
+            CONDUTORES[veiculo["idProprietario"]]["situacaoCNH"] = "S"
+
+        CONDUTORES[veiculo["idProprietario"]]["pontos"] += int(infracao["pontos"])
+        MULTAS[str(contador)] = {
+            "idMulta": str(contador),
+            "renavam": veiculo['renavam'],
+            "idInfracao": infracao["idInfracao"],
+            "idCondutor": veiculo["idProprietario"],
+            "dataInfracao": veiculo["dataCompra"],
+            "dataVencimento": veiculo["dataCompra"] + timedelta(days=40),
+            "dataPagamento": veiculo["dataCompra"] + timedelta(days=dias),
+            "valor": infracao["valor"],
+            "juros": float(infracao["valor"]) * dias / 100,
+            "valorFinal": float(infracao["valor"]) + (float(infracao["valor"]) * dias / 100),
+            "pago": "S"
+        }
+        contador += 1
+
+
+for key in CONDUTORES:
+    if CONDUTORES[key]["pontos"] >= 20:
+        CONDUTORES[key]["situacaoCNH"] = "S"

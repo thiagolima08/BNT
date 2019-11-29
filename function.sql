@@ -81,3 +81,33 @@ BEGIN
     RETURN CONCAT(acumulador, gerar_dv(acumulador));
 END; $$
 LANGUAGE plpgsql;
+
+DROP FUNCTION IF EXISTS gerar_data_licenciamento;
+CREATE OR REPLACE FUNCTION gerar_data_licenciamento (pla CHAR(7), ano CHAR(4))
+RETURNS DATE
+AS $$
+BEGIN
+    CASE SUBSTRING(pla, 7, 1)
+        WHEN '1' THEN
+            RETURN CONCAT(ano, '-03-31');
+        WHEN '2' THEN
+            RETURN CONCAT(ano, '-04-30');
+        WHEN '3' THEN
+            RETURN CONCAT(ano, '-05-31');
+        WHEN '4' THEN
+            RETURN CONCAT(ano, '-06-30');
+        WHEN '5' THEN
+            RETURN CONCAT(ano, '-07-31');
+        WHEN '6' THEN
+            RETURN CONCAT(ano, '-08-31');
+        WHEN '7' THEN
+            RETURN CONCAT(ano, '-09-30');
+        WHEN '8' THEN
+            RETURN CONCAT(ano, '-10-31');
+        WHEN '9' THEN
+            RETURN CONCAT(ano, '-11-30');
+        WHEN '0' THEN
+            RETURN CONCAT(ano, '-12-31');
+    END CASE;
+END; $$
+LANGUAGE plpgsql;
