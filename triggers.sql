@@ -10,3 +10,25 @@ CREATE TRIGGER tgInsertVeiculo
 BEFORE INSERT ON veiculo
 FOR EACH ROW
 EXECUTE PROCEDURE insertVeiculo();
+
+
+CREATE OR REPLACE FUNCTION insertMulta()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (NEW.idInfracao) <= 6
+       OR
+       (SELECT sum(inf.pontos) FROM multa as mul LEFT JOIN infracao as inf on mul.idInfracao = inf.idInfracao WHERE mul.renavam = NEW.renavam AND mul.dataInfracao <= NEW.dataInfracao AND mul.dataInfracao >= date(NEW.dataInfracao - interval '1 year')) >= 20
+    THEN
+        UPDATE condutor as cond
+        SET situacaoCNH = 'S'
+        WHERE cond.idCadastro = NEW.idCondutor;
+    END IF;
+
+    RETURN NEW;
+END; $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER tgInsertMulta
+BEFORE INSERT ON multa
+FOR EACH ROW
+EXECUTE PROCEDURE insertMulta();
