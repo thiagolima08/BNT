@@ -50,7 +50,7 @@ def info_veiculo(renavam):
     tip = res[0][2]
     pla = res[0][3]
     ano = res[0][4]
-    return "Placa: "+pla+"\nModelo: "+mod+"\nAno: "+ano+"\nMarca: "+mar+"\nTipo: "+tip+"\nSituação: "+situacao_veiculo(renavam)
+    return "Placa: "+pla+"\nModelo: "+mod+"\nAno: "+str(ano)+"\nMarca: "+mar+"\nTipo: "+tip+"\nSituação: "+situacao_veiculo(renavam)
 
 def consulta_proprietario(renavam):
     cur.execute("SELECT co.nome FROM veiculo ve JOIN condutor co ON ve.idProprietario=co.idCadastro WHERE renavam='%s';"%renavam)
@@ -61,7 +61,13 @@ def consulta_proprietario(renavam):
 def historico_veiculo(renavam):
     cur.execute("SELECT historico_transacao('%s');"%renavam)
     res = cur.fetchall()
-    return res[0][0]
+    array=['("Renavam      ","Modelo ","Marca","Ano","Proprietário                                 ","Data de Compra","Data de Venda")']
+    for r in res:
+        array.append(str(r))
+    string=""
+    for i in range(len(array)):
+        string += str(array[i])+"\n"
+    return string
 
 def info_condutor(cpf):
     cur.execute("SELECT nome,dataNasc,endereco,idCategoriaCNH FROM condutor WHERE cpf='%s';"%cpf)
