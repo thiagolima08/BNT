@@ -360,15 +360,17 @@ for key in VEICULOS:
                 dataCompra =  fake.date_between_dates(date_start=date(int(ano_transferencia),1,1), date_end=date(int(ano_transferencia),12,31))
                 proprietario = choice(condurores_keys)
                 if ano_transferencia == 2019:
+                    VEICULOS[key]["dataCompra"] = VEICULOS[key]["dataAquisicao"]
                     VEICULOS[key]["dataAquisicao"] = dataCompra
                 else:
                     TRANSFERENCIAS[str(contador_transferencia)] = {
                         "idHistorico": contador_transferencia,
                         "renavam": veiculo["renavam"],
                         "idProprietario": CONDUTORES[proprietario]["idCadastro"],
-                        "dataCompra": veiculo["dataCompra"],
+                        "dataCompra": VEICULOS[key]["dataAquisicao"],
                         "dataVenda": dataCompra
                     }
+                    VEICULOS[key]["dataCompra"] = VEICULOS[key]["dataAquisicao"]
                     VEICULOS[key]["dataAquisicao"] = dataCompra
                     contador_transferencia += 1
 
