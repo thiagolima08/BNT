@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import psycopg2 
+from prettytable import PrettyTable
 
 conn = psycopg2.connect("dbname=BNT user=postgres host=localhost")
 cur = conn.cursor()   
@@ -50,24 +51,25 @@ def info_veiculo(renavam):
     tip = res[0][2]
     pla = res[0][3]
     ano = res[0][4]
-    return "Placa: "+pla+"\nModelo: "+mod+"\nAno: "+str(ano)+"\nMarca: "+mar+"\nTipo: "+tip+"\nSituação: "+situacao_veiculo(renavam)
+    return "\nPlaca: "+pla+"\nModelo: "+mod+"\nAno: "+str(ano)+"\nMarca: "+mar+"\nTipo: "+tip+"\nSituação: "+situacao_veiculo(renavam)+"\n"
 
 def consulta_proprietario(renavam):
     cur.execute("SELECT co.nome FROM veiculo ve JOIN condutor co ON ve.idProprietario=co.idCadastro WHERE renavam='%s';"%renavam)
     res = cur.fetchall()  
     nome= res[0][0]
-    return "Proprietário do veículo: "+nome
+    return "\nProprietário do veículo: "+nome+"\n"
 
 def historico_veiculo(renavam):
     cur.execute("SELECT historico_transacao('%s');"%renavam)
     res = cur.fetchall()
-    array=['("Renavam      ","Modelo ","Marca","Ano","Proprietário                                 ","Data de Compra","Data de Venda")']
-    for r in res:
-        array.append(str(r))
-    string=""
-    for i in range(len(array)):
-        string += str(array[i])+"\n"
-    return string
+    rp=[]
+    for r in range(len(res)):
+        rp += res[r]
+    t = PrettyTable(["Modelo","Marca","Ano","Proprietário","Data de Compra","Data de Venda"])
+    for j in range(len(rp)):
+        tab = rp[j].split(',')
+        t.add_row(tab[1:])       
+    return t
 
 def info_condutor(cpf):
     cur.execute("SELECT nome,dataNasc,endereco,idCategoriaCNH FROM condutor WHERE cpf='%s';"%cpf)
@@ -77,8 +79,7 @@ def info_condutor(cpf):
     data_form = "{:%d/%m/%Y}".format(data)
     endereco = res[0][2]
     cat_cnh = res[0][3]
-    print()
-    return "Nome: "+nome+"\nData de Nascimento: "+data_form+"\nEndereço: "+endereco+"\nCategoria de CNH: "+cat_cnh+"\nSituação: "+situacao_cnh(cpf)
+    return "\nNome: "+nome+"\nData de Nascimento: "+data_form+"\nEndereço: "+endereco+"\nCategoria de CNH: "+cat_cnh+"\nSituação: "+situacao_cnh(cpf)+"\n"
 
 def info_lincenciamento(renavam):
     cur.execute("SELECT ano,dataVenc from licenciamento WHERE renavam = '%s';"%renavam)
@@ -86,23 +87,22 @@ def info_lincenciamento(renavam):
     ano = res[0][0]
     data = res[0][1]
     data_form = "{:%d/%m/%Y}".format(data)
-    return "Ano: "+str(ano)+"\nData de Vencimento: "+data_form+"\nPago: "+situacao_licenciamento(renavam)
+    return "\nAno: "+str(ano)+"\nData de Vencimento: "+data_form+"\nPago: "+situacao_licenciamento(renavam)+"\n"
 
 def consulta_multa(renavam):
     cur.execute("SELECT co.nome,inf.descricao,inf.valor,inf.pontos,mu.dataVencimento FROM multa mu JOIN infracao inf ON mu.idInfracao = inf.idInfracao JOIN condutor co ON co.idCadastro = mu.idCondutor WHERE renavam='%s';"%renavam)
     res = cur.fetchall()  
     if res==[]:
-         return "O veículo não possui multas"
+         return "\n-> O veículo não possui multas\n"
     else:
-        nome = res[0][0]
-        tipo_infr = res[0][1]
-        valor = res[0][2]
-        pontos = res[0][3]
-        data_venc = res[0][4]
-        data_venc_form = "{:%d/%m/%Y}".format(data_venc)
-        valor_form = '%.2f'%valor
-        return "Condutor: "+nome+"\nInfração: "+tipo_infr+"\nValor: "+valor_form+"\nPontuação da Infração: "+str(pontos)+"\nData de Vencimento: "+data_venc_form+"\nPago: "+situacao_multa(renavam)
-
+        rp=[]
+        t = PrettyTable(["Condutor","Infração","Valor","Pontos","Data de Vencimento"])
+        for i in range(len(res)):
+            rp.append(res[i])
+        for r in rp:
+            t.add_row(r)       
+        return t
+       
 def imprimir_menu():
     print("-------------------------")
     print("- MENU -")
