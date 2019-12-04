@@ -153,9 +153,10 @@ def menu_relatorios():
     print("-------------------------")
     print("- RELATÓRIOS -")
     print("-------------------------")
-    print("(1) Pontos do condutores")
+    print("(1) Pontos dos condutores")
     print("(2) Relação de Veículos e Proprietários")
-    print("(3) Número de infrações e valores de multas")
+    print("(3) Número de infrações e valores das multas")
+    print("(4) Para voltar ao menu inicial")
     print("(0) Sair do programa")
 
 #Entradas (testes):
@@ -184,18 +185,18 @@ while True:
         r = input("Digite o renavam: ")
         print(consulta_multa(r))
     if menu_selected == "7":
-        while True:
-            menu_relatorios()
-            menu_selected = input("Escolha uma opção: ")
-            if menu_selected == "1":
-                print(condutores_pontos())
-            if menu_selected == "2":
-                print(veiculo_proprietario())
-            if menu_selected == "3":
-                print(infracoes_multas()) 
-            if menu_selected == "0":
-                break
-
+        menu_relatorios()
+        menu_selected = input("Escolha uma opção: ")
+        if menu_selected == "1":
+            print(condutores_pontos())
+        if menu_selected == "2":
+            print(veiculo_proprietario())
+        if menu_selected == "3":
+            print(infracoes_multas()) 
+        if menu_selected == "4":
+            continue
+        if menu_selected == "0":
+            break
     if menu_selected == "0":
         break
 
