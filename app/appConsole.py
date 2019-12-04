@@ -102,7 +102,40 @@ def consulta_multa(renavam):
         for r in rp:
             t.add_row(r)       
         return t
-       
+    
+def condutores_pontos():
+    cur.execute("SELECT *  FROM condutor_com_pontos;")
+    res = cur.fetchall()  
+    rp=[]
+    t = PrettyTable(["idCadastro","Nome do condutor","Categoria","Ano da infração","Pontos"])
+    for i in range(len(res)):
+        rp.append(res[i])
+    for r in rp:
+        t.add_row(r)       
+    return t
+
+def veiculo_proprietario():
+    cur.execute("SELECT *  FROM veiculos_proprietarios;")
+    res = cur.fetchall()  
+    rp=[]
+    t = PrettyTable(["Renavam","Placa","Proprietário","Modelo","Marca","Cidade","Estado","Tipo"])
+    for i in range(len(res)):
+        rp.append(res[i])
+    for r in rp:
+        t.add_row(r)       
+    return t
+
+def infracoes_multas():
+    cur.execute("SELECT *  FROM num_infracoes_e_valores_multas ORDER BY 1,2")
+    res = cur.fetchall()  
+    rp=[]
+    t = PrettyTable(["Ano","Mês","Quantidade de infrações","Valor total de multas"])
+    for i in range(len(res)):
+        rp.append(res[i])
+    for r in rp:
+        t.add_row(r)       
+    return t
+
 def imprimir_menu():
     print("-------------------------")
     print("- MENU -")
@@ -113,7 +146,17 @@ def imprimir_menu():
     print("(4) Informações do Condutor")
     print("(5) Informações do licenciamento")
     print("(6) Consultar multas")
-    print("(7) Sair do programa")
+    print("(7) Menu de relatórios")
+    print("(0) Sair do programa")
+
+def menu_relatorios():
+    print("-------------------------")
+    print("- RELATÓRIOS -")
+    print("-------------------------")
+    print("(1) Pontos do condutores")
+    print("(2) Relação de Veículos e Proprietários")
+    print("(3) Número de infrações e valores de multas")
+    print("(0) Sair do programa")
 
 #Entradas (testes):
 #Renavam = 86727075753
@@ -139,8 +182,21 @@ while True:
         print(info_lincenciamento(r))
     if menu_selected == "6":
         r = input("Digite o renavam: ")
-        print(consulta_multa(r))    
+        print(consulta_multa(r))
     if menu_selected == "7":
+        while True:
+            menu_relatorios()
+            menu_selected = input("Escolha uma opção: ")
+            if menu_selected == "1":
+                print(condutores_pontos())
+            if menu_selected == "2":
+                print(veiculo_proprietario())
+            if menu_selected == "3":
+                print(infracoes_multas()) 
+            if menu_selected == "0":
+                break
+
+    if menu_selected == "0":
         break
 
 cur.close()
